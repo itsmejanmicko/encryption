@@ -1,4 +1,4 @@
-/* General font settings */
+
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -14,7 +14,6 @@ body {
     align-items: center;
     height: 100vh;
 }
-
 
 .section {
     border: none;
@@ -44,21 +43,78 @@ body {
     padding: 10px; 
 }
 
+.password {
+    width: 50%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
 form {
     width: 100%;
 }
-.button_div{
+
+.button_div {
     padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
 }
-.bttn{
-    padding:10px;
 
+.bttn {
+    padding: 10px;
     width: 30%;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    border-radius: 5px;
 }
-.p{
-    color:red;
+
+.bttn:hover {
+    background-color: #ddd;
+}
+
+.p {
+    color: red;
+    font-size: 0.9rem;
+}
+
+
+@media (max-width: 600px) {
+    .main {
+        padding: 10px;
+    }
+
+    .section {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .title {
+        font-size: 1.2rem;
+    }
+
+    .fixed-textarea {
+        height: 80px; 
+        font-size: 0.9rem;
+    }
+
+    .password {
+        width: 100%; 
+        font-size: 0.9rem;
+    }
+
+    .button_div {
+        flex-direction: column; 
+        gap: 5px;
+    }
+
+    .bttn {
+        width: 100%; 
+        font-size: 0.9rem;
+    }
 }

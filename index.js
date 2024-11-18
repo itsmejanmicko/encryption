@@ -1,15 +1,14 @@
 const encrypt = document.getElementById('encrypt');
 const decrypt = document.getElementById('decrypt');
 const text_area = document.getElementById('text_area');
+const password = document.getElementById('password');
 
-const secret = "038832e701f0d198f2514f0d926724c3f80e0e5ec977ad275a7222785444a995";
-
-function encryptText(text) {
+function encryptText(text, secret) {
     const encrypted = CryptoJS.AES.encrypt(text, secret);
     return encrypted.toString();
 }
 
-function decryptText(cipherText) {
+function decryptText(cipherText, secret) {
     const decrypted = CryptoJS.AES.decrypt(cipherText, secret);
     return decrypted.toString(CryptoJS.enc.Utf8); 
 }
@@ -22,28 +21,45 @@ function checkIsValid(text) {
     return true;
 }
 
+function checkIsPassword(pass) {
+    if (!pass) {
+        alert("Password is required!");
+        return false;
+    }
+    return true;
+}
 
 encrypt.addEventListener('click', (e) => {
     e.preventDefault();
-    
-    const text = text_area.value;
+    const text = text_area.value.trim();
+    const passwordValue = password.value.trim();
+
     if (!checkIsValid(text)) return;
+    if (!checkIsPassword(passwordValue)) return;
 
-    const encrypted = encryptText(text);
+    const encrypted = encryptText(text, passwordValue);
     text_area.value = encrypted;
+    encrypt.disabled = true;
+    decrypt.disabled = false; 
 });
-
 
 decrypt.addEventListener('click', (e) => {
     e.preventDefault();
-    
-    const text = text_area.value;
+    const text = text_area.value.trim();
+    const passwordValue = password.value.trim();
+
     if (!checkIsValid(text)) return;
+    if (!checkIsPassword(passwordValue)) return;
 
     try {
-        const decrypted = decryptText(text);
-        text_area.value = decrypted; 
+        const decrypted = decryptText(text, passwordValue);
+        if (!decrypted) {
+            throw new Error("Decryption key is not valid!");
+        }
+        text_area.value = decrypted;
+        encrypt.disabled = false; 
+        decrypt.disabled = true; 
     } catch (error) {
-        alert("Invalid encrypted text!");
+        alert(error.message);
     }
 });
